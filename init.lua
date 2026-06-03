@@ -1,7 +1,6 @@
-
 require("plugins.lazy")
-require("plugins.treesitter")
-require("phil")
+require("treesitter")
+require("remap")
 
 
 vim.opt.number = true
