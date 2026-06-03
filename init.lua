@@ -7,3 +7,4 @@ vim.opt.relativenumber = true
 
 require("plugins.lazy")
 
+vim.lsp.enable("lua_ls")

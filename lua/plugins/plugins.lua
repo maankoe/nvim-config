@@ -1,4 +1,20 @@
 return {
+	{
+		"neovim/nvim-lspconfig",
+		dependencies={
+			{
+				"folke/lazydev.nvim",
+				ft = "lua", -- only load on lua files
+				opts = {
+					library = {
+						-- See the configuration section for more details
+						-- Load luvit types when the `vim.uv` word is found
+						{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+					},
+				},
+			},
+		},
+	},
 	{ 
 		"folke/tokyonight.nvim",
 		config = function() vim.cmd.colorscheme = "tokyonight" end,
@@ -34,6 +50,7 @@ return {
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function() require("harpoon_config") end
+		config = function() require("harpoon_config") end,
+		enabled = false,
 	},
 }
