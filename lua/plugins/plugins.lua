@@ -1,16 +1,11 @@
 return {
 	{ 
 		"folke/tokyonight.nvim",
-		config = function() 
-			vim.cmd.colorscheme "tokyonight" 
-		end
+		config = function() vim.cmd.colorscheme = "tokyonight" end,
 	},
 	{
 		'echasnovski/mini.nvim',
-		config = function()
-			local statusline = require 'mini.statusline'
-			statusline.setup { use_icons = true }
-		end
+		config = function() require("mininvim") end,
 	},
 	{
 		'nvim-telescope/telescope.nvim', version = '*',
@@ -18,20 +13,27 @@ return {
         		'nvim-lua/plenary.nvim',
         		-- optional but recommended
         		{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-		}
+		},
+		config = function() require("telescope") end,
 	},
 	{
 		'nvim-treesitter/nvim-treesitter',
 		lazy = false,
 		build = ':TSUpdate',
-		config = function()
-			require("nvim-treesitter").install({ 'python', 'java', 'rust', 'bash', 'markdown', 'lua' }):wait(30000)
-		end,
+		config = function() require('treesitter') end,
 	},
 	{
 		'mbbill/undotree',
+		config = function() require("undotree") end,
 	},
 	{
 		'tpope/vim-fugitive',
-	}
+		config = function() require("git") end,
+	},
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function() require("harpoon_config") end
+	},
 }
