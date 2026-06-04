@@ -17,11 +17,11 @@ return {
 	},
 	{ 
 		"folke/tokyonight.nvim",
-		config = function() vim.cmd.colorscheme = "tokyonight" end,
+		config = function() require("tokyonight_config") end,
 	},
 	{
 		'echasnovski/mini.nvim',
-		config = function() require("mininvim") end,
+		config = function() require("mininvim_config") end,
 	},
 	{
 		'nvim-telescope/telescope.nvim', version = '*',
@@ -30,21 +30,21 @@ return {
         		-- optional but recommended
         		{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 		},
-		config = function() require("telescope") end,
+		config = function() require("telescope_config") end,
 	},
 	{
 		'nvim-treesitter/nvim-treesitter',
 		lazy = false,
 		build = ':TSUpdate',
-		config = function() require('treesitter') end,
+		config = function() require('treesitter_config') end,
 	},
 	{
 		'mbbill/undotree',
-		config = function() require("undotree") end,
+		config = function() require("undotree_config") end,
 	},
 	{
 		'tpope/vim-fugitive',
-		config = function() require("git") end,
+		config = function() require("git_config") end,
 	},
 	{
 		"ThePrimeagen/harpoon",
