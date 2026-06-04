@@ -15,10 +15,6 @@ return {
 			},
 		},
 	},
-	{ 
-		"folke/tokyonight.nvim",
-		config = function() require("tokyonight_config") end,
-	},
 	{
 		'echasnovski/mini.nvim',
 		config = function() require("mininvim_config") end,
@@ -37,6 +33,23 @@ return {
 		lazy = false,
 		build = ':TSUpdate',
 		config = function() require('treesitter_config') end,
+	},
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		config = function() require("tokyonight_config") end,
+	},
+	{ 
+		"folke/tokyonight.nvim",
+		config = function() require("tokyonight_config") end,
+	},
+	{
+		"folke/tokyonight.nvim",
+		config = function() require("tokyonight_config") end,
+	},
+	{
+		"folke/tokyonight.nvim",
+		config = function() require("tokyonight_config") end,
 	},
 	{
 		'mbbill/undotree',
