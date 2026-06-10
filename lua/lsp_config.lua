@@ -1,6 +1,6 @@
 
 --vim.o.complete = ".,o"
-vim.o.complete:append("o")
+vim.opt.complete:append("o")
 vim.o.completeopt = "fuzzy,menuone,popup,noselect"
 vim.o.autocomplete = true
 vim.o.pumheight = 7
