@@ -1,4 +1,9 @@
 
+--vim.o.complete = ".,o"
+vim.o.complete:append("o")
+vim.o.completeopt = "fuzzy,menuone,popup,noselect"
+vim.o.autocomplete = true
+vim.o.pumheight = 7
 
 vim.lsp.config("lua_ls", {
     cmd = { "lua-language-server" },
@@ -8,72 +13,31 @@ vim.lsp.enable("lua_ls")
 vim.lsp.enable('basedpyright')
 vim.lsp.enable("rust_analyzer")
 
-
-vim.o.complete = ".,o" -- use buffer and omnifunc
-vim.o.completeopt = "fuzzy,menuone,popup,noinsert"
-vim.o.autocomplete = true
-vim.o.pumheight = 7
-
-
--- Disable <enter> select for autocomplete popup
-vim.keymap.set('i', '<CR>', function()
-    if vim.fn.pumvisible() == 1 then
-        -- <C-e> clears the completion menu; <CR> then creates the new line safely
-        return '<C-e><CR>' 
-    else
-        return '<CR>' -- Acts as a standard newline if menu is closed
-    end
-end, { expr = true, noremap = true, silent = true })
-
--- Enable <tab> select for autocomplete popup
-vim.keymap.set('i', '<Tab>', function()
-    if vim.fn.pumvisible() == 1 then
-        return '<C-y>'
-    else
-        return '<Tab>'
-    end
-end, { expr = true, noremap = true })
-
-
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
-        vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, {
-            callback = function(ev)
-                local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
-                if client:supports_method('textDocument/completion') then
-                    -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-                    local chars = {".", ":", "_"};
-                    for i = 65, 90 do table.insert(chars, string.char(i)) end -- A-Z
-                    for i = 97, 122 do table.insert(chars, string.char(i)) end -- a-z
-                    client.server_capabilities.completionProvider.triggerCharacters = chars
-                    vim.lsp.completion.enable(true, client.id, ev.buf, {autotrigger = true})
-                end
-            end,
-            -- Optional formating of items
-            convert = function(item)
-                -- Remove leading misc chars for abbr name,
-                -- and cap field to 25 chars
-                --local abbr = item.label
-                --abbr = abbr:match("[%w_.]+.*") or abbr
-                --abbr = #abbr > 25 and abbr:sub(1, 24) .. "…" or abbr
-                --
-                -- Remove return value
-                --local menu = ""
-
-                -- Only show abbr name, remove leading misc chars (bullets etc.),
-                -- and cap field to 15 chars
-                local abbr = item.label
-                abbr = abbr:gsub("%b()", ""):gsub("%b{}", "")
-                abbr = abbr:match("[%w_.]+.*") or abbr
-                abbr = #abbr > 15 and abbr:sub(1, 14) .. "…" or abbr
-
-                -- Cap return value field to 15 chars
-                local menu = item.detail or ""
-                menu = #menu > 15 and menu:sub(1, 14) .. "…" or menu
-
-                return { abbr = abbr, menu = menu }
-            end,
-        })
+        local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+        if client:supports_method("textDocument/completion") then 
+            vim.lsp.completion.enable(true, client.id, ev.buf, {autotrigger = true})
+        end
     end,
 })
+
+-- Disable <enter> select for autocomplete popup
+-- vim.keymap.set('i', '<CR>', function()
+--    if vim.fn.pumvisible() == 1 then
+--        -- <C-e> clears the completion menu; <CR> then creates the new line safely
+--        return '<C-e><CR>' 
+--    else
+--       return '<CR>' -- Acts as a standard newline if menu is closed
+--    end
+--end, { expr = true, noremap = true, silent = true })
+
+-- Enable <tab> select for autocomplete popup
+--vim.keymap.set('i', '<Tab>', function()
+--    if vim.fn.pumvisible() == 1 then
+--        return '<C-y>'
+--    else
+--        return '<Tab>'
+--    end
+--end, { expr = true, noremap = true })
 
