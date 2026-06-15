@@ -1,14 +1,37 @@
--- For references, go to :Telescope builtin
--- <C-/> in view to see other <C- commands
 
-require("telescope").setup {
-	pickers = {
-		find_files = {
-			theme = "ivy"
-		}
-	}
+vim.api.nvim_create_autocmd('PackChanged', {
+	desc = 'telescope: build extensions and setup it up in order',
+	callback = function(ev)
+		local name, kind = ev.data.spec.name, ev.data.kind
+		if name == 'telescope-fzf-native.nvim' and (kind == 'install' or kind == 'update') then
+			vim.system({ 'make' }, { cwd = ev.data.path })
+		end
+	end,
+})
+
+
+vim.pack.add({
+	'https://github.com/nvim-lua/plenary.nvim',
+	'https://github.com/nvim-telescope/telescope.nvim',
+	'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
+})
+
+require('telescope').load_extension 'fzf'
+
+require('telescope').setup {
+    defaults = require('telescope.themes').get_ivy(),
+	extensions = {
+	fzf = {
+			fuzzy = true,
+	    	override_generic_sorter = true,
+			override_file_sorter = true,
+			case_mode = 'smart_case',
+		},
+	},
 }
 
+-- For references, go to :Telescope builtin
+-- <C-/> in view to see other <C- commands
 
 local builtin = require('telescope.builtin')
 

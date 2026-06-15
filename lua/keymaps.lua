@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 vim.keymap.set("x", "p", [["_dP]], {desc = "replace without losing yank"})
 --vim,keymap.set({"n", "v"}, "<leader>d", [["_d]], {desc = "delete without yanking"})
 
@@ -25,7 +23,10 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", {desc = "chmod +x", silent = true})
 vim.keymap.set("n", "<leader>re", "<cmd>restart<cr>", {desc = "restart nvim"})
 
-vim.keymap.set("n", "<leader>u>", function()
-    vim.cmd.packadd("nvim.undotree")
-    require("undotree").open()
-end, {desc = "undotree"})
+vim.keymap.set("n", "<leader>st", function()
+	vim.cmd.vnew()
+	vim.cmd.term()
+	vim.cmd.wincmd("J")
+	vim.api.nvim_win_set_height(0, 15)
+end)
+

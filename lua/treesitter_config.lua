@@ -1,4 +1,8 @@
 
+vim.pack.add({
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main" }
+})
+
 require("nvim-treesitter").install({ 'python', 'java', 'rust', 'bash', 'markdown', 'lua' }):wait(30000)
 
 vim.api.nvim_create_autocmd( "FileType", {

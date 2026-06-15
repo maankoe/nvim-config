@@ -1,4 +1,6 @@
 
+vim.pack.add({"https://github.com/neovim/nvim-lspconfig"})
+
 --vim.o.complete = ".,o"
 vim.opt.complete:append("o")
 vim.o.completeopt = "fuzzy,menuone,popup,noselect"
